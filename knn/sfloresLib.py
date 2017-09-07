@@ -8,6 +8,10 @@
 
 import tkinter
 from tkinter import ttk , messagebox, filedialog
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+from matplotlib.figure import Figure
  
 class Ventana(ttk.Frame):
     """The adders gui and functions."""
@@ -35,7 +39,18 @@ class Ventana(ttk.Frame):
         self.canvas.pack()
         return w
 
-    def quitEvent( self ):
+    def graphPlot(self,x,y,xLabel,yLabel,title):
+        f = Figure(figsize=(5,5), dpi=100)
+        a = f.add_subplot(111,xlabel=xLabel,ylabel=yLabel,title=title)
+        a.plot(x,y)
+        self.canvas = FigureCanvasTkAgg(f,self.root)
+        self.canvas.show()
+        self.canvas.get_tk_widget().pack(side=tkinter.BOTTOM, fill=tkinter.BOTH, expand=True)
+        toolbar = NavigationToolbar2TkAgg(self.canvas, self.root)
+        toolbar.update()
+        self.canvas._tkcanvas.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=True)
+
+    def quitEvent(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             self.root.destroy()
 

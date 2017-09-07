@@ -21,7 +21,7 @@ import argparse
 def GUI( ):
 	ventana = createWindow()
 	ventana.setTitle("KNN")
-	ventana.setSize(400,400) 
+	ventana.setSize(600,600) 
 	ventana.setColor("white")
 	ventana.setCloseConfirm()
 	ventana.createButton("Browse" , browse)
@@ -37,6 +37,9 @@ def readFile(filename, delimiter):
 	return aux
 
 def test(database, plot, kNum, sNum):
+	ks = []
+	accuracies = []
+
 	#leemos la base de datos
 	iris = readFile(database, ",") 
 	examples = len(iris)
@@ -64,10 +67,15 @@ def test(database, plot, kNum, sNum):
 	    	knn.predict()
 	    	accuracy += knn.accuracy()
 	    accuracy /= sMax
+	    print("Accuracy: " , accuracy, "k: " , k)
 	    if(plot):
-	    	ventana.createLabel( "Accurracy: " + str(accuracy) + " k: " + str(k) )
-	    else:
-	    	print("Accuracy: " , accuracy, "k: " , k)
+	    	ks.append(k);
+	    	accuracies.append(accuracy)
+	    	
+	if(plot):
+		ventana.deleteAllButton()
+		ventana.graphPlot(ks,accuracies,"k's","Accuracy","Accuracy Graph")
+
 
 #######  Main Program  #######
 if __name__ == '__main__':
