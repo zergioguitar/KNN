@@ -27,10 +27,10 @@ def distance(a, b, length):
 		distancia += pow((float(a[x]) - float(b[x])), 2)
 	return math.sqrt(distancia)
 
-def neighbors(train, testInstance, k):
-	length = len(testInstance)-1 #sacamos la columna de tag.
+def neighbors(train, instancia, k):
+	length = len(instancia)-1 #sacamos la columna de tag.
 	#calculamos la distancia y la agregamos la agregamos a un arreglo
-	distancias = [(train[x], distance(testInstance, train[x], length)) for x in range(len(train))]
+	distancias = [(train[x], distance(instancia, train[x], length)) for x in range(len(train))]
 	#ordenamos las distancias
 	distancias.sort(key=operator.itemgetter(1)) 
 	return [distancias[x][0] for x in range(k)]

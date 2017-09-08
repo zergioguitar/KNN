@@ -36,7 +36,7 @@ def readFile(filename, delimiter):
 	aux = [item.split(delimiter) for item in aux.split('\n')[:-1]]
 	return aux
 
-def test(database, plot, kNum, sNum):
+def test(database, plot, kNum, sMax):
 	ks = []
 	accuracies = []
 
@@ -45,6 +45,12 @@ def test(database, plot, kNum, sNum):
 	examples = len(iris)
 	columns = len(iris[0])
 
+	if(kNum>examples or kNum<1):
+		print("Debe usar un k menor a la cantidad de datos y mayor a 0") 
+		quit()
+	if(sMax<1 or sMax>examples):
+		print("Debe usar un s mayor a 0 y menor a la cantidad de datos") 
+		quit()
 	#desordenamos los datos
 	#desordenamos los datos
 	indexes = np.random.permutation(examples)
