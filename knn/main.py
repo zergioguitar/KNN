@@ -33,7 +33,7 @@ def browse( ):
 
 def readFile(filename, delimiter):
 	aux = open(filename).read()
-	aux = [item.split(delimiter) for item in aux.split('\n')[:-1]]
+	aux = [item.split(delimiter) for item in aux.split('\n')[:]]
 	return aux
 
 def test(database, plot, kNum, sMax):
